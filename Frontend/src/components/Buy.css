@@ -1,0 +1,206 @@
+.buy-page {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #FFE6F0, #F0E6FF);
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(255, 107, 157, 0.4);
+    font-family: 'Segoe UI', sans-serif;
+    border: 2px solid #A78BFA;
+}
+
+.buy-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+    background: linear-gradient(135deg, #FFE6F0, #F0E6FF);
+    border-radius: 20px;
+    box-shadow: 0 12px 30px rgba(255, 107, 157, 0.4);
+    font-family: 'Segoe UI', sans-serif;
+    border: 2px solid #A78BFA;
+}
+
+.buy-image {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
+}
+
+/* Add styles for the product-image class used in Buy component */
+.product-image {
+    width: 300px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: 15px 0;
+    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
+    border: 2px solid #A78BFA;
+}
+
+.product-details {
+    padding: 20px;
+    background: linear-gradient(135deg, #FFFFFF, #FFE6F0);
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
+    border: 1px solid #A78BFA;
+    margin-bottom: 20px;
+}
+
+.product-details h3 {
+    color: #4A148C;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.product-details p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #4A148C;
+    line-height: 1.5;
+}
+
+.product-details strong {
+    color: #4A148C;
+    font-weight: 600;
+}
+
+.bid-form {
+    background: linear-gradient(135deg, #FFFFFF, #F0E6FF);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
+    border: 1px solid #A78BFA;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4A148C;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 2px solid #A78BFA;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: 0.3s border-color;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+input[type="number"]:focus {
+    border-color: #4A148C;
+    outline: none;
+    box-shadow: 0 0 8px rgba(74, 20, 140, 0.4);
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    color: white;
+    background: linear-gradient(135deg, #FF6B9D, #A78BFA);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 107, 157, 0.4);
+    width: auto;
+    min-width: 120px;
+    margin: 5px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #FF4D8D, #8B5A96);
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.6);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.cancel-button {
+    text-decoration: none;
+    color: #4A148C;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #A78BFA;
+    cursor: pointer;
+    position: relative;
+    margin-top: 15px;
+    width: fit-content;
+    display: inline-block;
+}
+
+.cancel-button:hover {
+    background: linear-gradient(135deg, #FF6B9D, #A78BFA);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.5);
+}
+
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ffcdd2;
+    font-weight: 500;
+}
+
+.success-message {
+    background: #e8f5e8;
+    color: #2e7d32;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #c8e6c9;
+    font-weight: 500;
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #4A148C;
+}
+
+.note {
+    color: #c0392b;
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+.view-bids-link {
+    display: inline-block;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #4A148C;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.view-bids-link:hover {
+    color: #4A148C;
+}
+  

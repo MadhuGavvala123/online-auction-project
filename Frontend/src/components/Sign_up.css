@@ -1,0 +1,105 @@
+/* Sign-up page styling */
+.sign-up-cls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFE6F0, #F0E6FF);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+form {
+  background: linear-gradient(135deg, #FFFFFF, #FFE6F0);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+  width: 100%;
+  max-width: 450px;
+  transition: transform 0.3s ease-in-out;
+  border: 2px solid #A78BFA;
+}
+
+form:hover {
+  transform: scale(1.02);
+}
+
+h2 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 20px;
+  color: #4A148C;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(74, 20, 140, 0.3);
+}
+
+label {
+  font-size: 16px;
+  color: #4A148C;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0 25px;
+  border: 2px solid #A78BFA;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: border 0.3s ease, background-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #4A148C;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 8px rgba(74, 20, 140, 0.4);
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #FF6B9D, #A78BFA);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(255, 107, 157, 0.4);
+}
+
+button:disabled {
+  background: linear-gradient(135deg, #cccccc, #dddddd);
+  cursor: not-allowed;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #FF4D8D, #8B5A96);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 157, 0.6);
+}
+
+.message {
+  text-align: center;
+  font-size: 16px;
+  color: black;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+form .loading {
+  text-align: center;
+  font-size: 16px;
+  color: #4A148C;
+  font-weight: bold;
+}
