@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import './ViewBids.css';
 
@@ -13,7 +13,7 @@ const ViewBids = () => {
     const fetchBids = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5001/bids', {
+        const response = await api.get('/bids', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -124,7 +124,7 @@ const ViewBids = () => {
                 </div>
                 
                 {/* Only show status for highest bid */}
-                {bid.bidAmount === bid.productId?.price && (
+                {bid.bidAmount === Math.max(...bids.filter(item => item.productId?._id === bid.productId?._id).map(item => item.bidAmount)) && (
                   <div className="bid-status">
                     <span className="status-highest">🏆 Highest</span>
                   </div>

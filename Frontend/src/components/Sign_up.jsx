@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import './Sign_up.css'; 
 
@@ -35,7 +35,7 @@ function Sign_up() {
       setLoading(true);
       console.log('Sending signup request:', { name, mobile, email });
       
-      const res = await axios.post('/signup', {
+      const res = await api.post('/signup', {
         name,
         mobile,
         email,

@@ -21,11 +21,7 @@ console.log('Environment check:', {
 });
 
 app.use(cors({
-    origin: [
-        'http://localhost:5173',
-        'http://localhost:3000',
-        'https://your-frontend.vercel.app'
-    ],
+    origin: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -198,8 +194,22 @@ app.post('/signin', async (req, res) => {
 app.get('/items', async (req, res) => {
     try {
         const items = await Product.find().select('name price auctionDate auctionEndDate auctionStartTime auctionEndTime img auctionStatus description _id category');
-        console.log("Sample item:", items[0]);
-        res.json(items);
+        const highestBids = await Bid.aggregate([
+            { $group: { _id: '$productId', currentPrice: { $max: '$bidAmount' } } }
+        ]);
+        const priceByProduct = new Map(highestBids.map(bid => [String(bid._id), bid.currentPrice]));
+
+        const withCurrentPrice = items.map(item => {
+            const { start, end } = auctionWindow(item);
+            const auctionStatus = statusForWindow(start, end);
+            return {
+                ...item.toObject(),
+                auctionStatus,
+                currentPrice: priceByProduct.get(String(item._id)) ?? item.price
+            };
+        });
+
+        res.json(withCurrentPrice);
     } catch (err) {
         console.error("Error fetching items:", err);
         res.status(500).json({ message: "Failed to load items" });
@@ -278,25 +288,34 @@ app.post('/sell', authenticateToken, async (req, res) => {
             }
         }
 
+        if (!name || !description || !price || !auctionDate || !auctionStartTime || !auctionEndTime || !category || !img) {
+            return res.status(400).json({ message: 'All listing fields are required' });
+        }
+
+        const parsedPrice = parseFloat(price);
+        if (!Number.isFinite(parsedPrice) || parsedPrice <= 0) {
+            return res.status(400).json({ message: 'Starting price must be greater than 0' });
+        }
+
         // Use auctionEndDate if provided, otherwise use auctionDate
         const endDate = auctionEndDate || auctionDate;
+        const { start: startDateTime, end: endDateTime } = auctionWindow({
+            auctionDate,
+            auctionEndDate: endDate,
+            auctionStartTime,
+            auctionEndTime
+        });
 
-        // Combine auctionDate with times for status calculation
-        const startDateTime = new Date(`${auctionDate}T${auctionStartTime}:00`);
-        const endDateTime = new Date(`${endDate}T${auctionEndTime}:00`);
-        const now = new Date();
-
-        let auctionStatus = 'Upcoming';
-        if (now >= startDateTime && now <= endDateTime) {
-            auctionStatus = 'Live';
-        } else if (now > endDateTime) {
-            auctionStatus = 'Closed';
+        if (!(endDateTime > startDateTime)) {
+            return res.status(400).json({ message: 'Auction end must be after the start' });
         }
+
+        const auctionStatus = statusForWindow(startDateTime, endDateTime);
 
         const newProduct = new Product({
             name,
             description,
-            price: parseFloat(price),
+            price: parsedPrice,
             auctionDate,
             auctionEndDate: endDate,
             auctionStartTime,
@@ -368,7 +387,13 @@ app.get('/items/:productId',authenticateToken, async (req, res) => {
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
-        res.json(product);
+        const highestBid = await Bid.findOne({ productId }).sort({ bidAmount: -1 });
+        const { start, end } = auctionWindow(product);
+        res.json({
+            ...product.toObject(),
+            auctionStatus: statusForWindow(start, end),
+            currentPrice: highestBid ? highestBid.bidAmount : product.price
+        });
     } catch (error) {
         console.error('Error fetching product details:', error);
         res.status(500).json({ message: 'Failed to fetch product details' });
@@ -393,21 +418,28 @@ app.post('/bid/:productId',authenticateToken, async (req, res) => {
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        //check if the bid amount is greater than the current price.
-        if (bidAmount < product.price) {
-            return res.status(400).json({ message: 'Bid amount is lower than current price' });
+        const { start, end } = auctionWindow(product);
+        if (statusForWindow(start, end) !== 'Live') {
+            return res.status(400).json({ message: 'Bids are only accepted while the auction is live' });
         }
 
-        // Create a new bid
+        const highestBid = await Bid.findOne({ productId }).sort({ bidAmount: -1 });
+        const currentPrice = highestBid ? highestBid.bidAmount : product.price;
+        const amount = Number(bidAmount);
+
+        if (!Number.isFinite(amount) || amount <= currentPrice) {
+            return res.status(400).json({ message: 'Bid amount must be higher than the current price' });
+        }
+
         const newBid = new Bid({
             productId,
-            bidAmount,
-            bidder: userId, // Associate the bid with the logged-in user
+            bidAmount: amount,
+            bidder: userId,
         });
 
         await newBid.save();
 
-        res.status(201).json({ message: 'Bid placed successfully' });
+        res.status(201).json({ message: 'Bid placed successfully', currentPrice: amount });
     } catch (error) {
         console.error('Error placing bid:', error);
         res.status(500).json({ message: 'Failed to place bid', error: error.message });
@@ -460,10 +492,7 @@ app.get('/winners', async (req, res) => {
                 
                 // Use auctionEndDate if available, otherwise fallback to auctionDate
                 const endDate = product.auctionEndDate || product.auctionDate;
-                
-                // Parse dates safely using the correct end date
-                const startDateTime = new Date(`${product.auctionDate}T${product.auctionStartTime}:00`);
-                const endDateTime = new Date(`${endDate}T${product.auctionEndTime}:00`);
+                const { start: startDateTime, end: endDateTime } = auctionWindow(product);
                 
                 console.log(`Product ${product.name}: Start=${startDateTime}, End=${endDateTime}, Now=${now}`);
                 
@@ -558,7 +587,7 @@ app.get('/winners/:productId', async (req, res) => {
 
         // Check if auction is closed
         const now = new Date();
-        const endDateTime = new Date(`${product.auctionDate}T${product.auctionEndTime}:00`);
+        const { end: endDateTime } = auctionWindow(product);
         
         if (now <= endDateTime) {
             return res.status(400).json({ message: 'Auction is still active' });
@@ -726,7 +755,7 @@ app.get('/admin/products', authenticateToken, async (req, res) => {
     }
 
     try {
-        const products = await Product.find().populate('seller', 'name email');
+        const products = await Product.find();
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: 'Failed to fetch products' });
@@ -741,13 +770,13 @@ app.get('/analytics/user-stats', authenticateToken, async (req, res) => {
         // Get user's bidding statistics
         const totalBids = await Bid.countDocuments({ bidder: userId });
         const totalBidAmount = await Bid.aggregate([
-            { $match: { bidder: mongoose.Types.ObjectId(userId) } },
+            { $match: { bidder: new mongoose.Types.ObjectId(userId) } },
             { $group: { _id: null, total: { $sum: '$bidAmount' } } }
         ]).then(result => result[0]?.total || 0);
 
         // Get winning bids
         const winningBids = await Bid.aggregate([
-            { $match: { bidder: mongoose.Types.ObjectId(userId) } },
+            { $match: { bidder: new mongoose.Types.ObjectId(userId) } },
             { $lookup: { from: 'products', localField: 'productId', foreignField: '_id', as: 'product' } },
             { $unwind: '$product' },
             { $match: { 'product.auctionStatus': 'Closed' } },
@@ -761,7 +790,7 @@ app.get('/analytics/user-stats', authenticateToken, async (req, res) => {
 
         // Get favorite categories
         const favoriteCategories = await Bid.aggregate([
-            { $match: { bidder: mongoose.Types.ObjectId(userId) } },
+            { $match: { bidder: new mongoose.Types.ObjectId(userId) } },
             { $lookup: { from: 'products', localField: 'productId', foreignField: '_id', as: 'product' } },
             { $unwind: '$product' },
             { $group: { _id: '$product.category', bidCount: { $sum: 1 } } },
@@ -784,31 +813,6 @@ app.get('/analytics/user-stats', authenticateToken, async (req, res) => {
         console.error('User analytics error:', error);
         res.status(500).json({ message: 'Failed to fetch user analytics' });
     }
-});
-
-// Track user activity middleware
-const trackUserActivity = (action) => {
-    return async (req, res, next) => {
-        try {
-            if (req.user) {
-                await UserActivity.create({
-                    userId: req.user.userId,
-                    action,
-                    details: req.body,
-                    ipAddress: req.ip,
-                    userAgent: req.get('User-Agent')
-                });
-            }
-        } catch (error) {
-            console.error('Activity tracking error:', error);
-        }
-        next();
-    };
-};
-
-// Apply tracking to existing routes
-app.post('/bid/:productId', authenticateToken, trackUserActivity('place_bid'), async (req, res) => {
-    // ... existing bid logic ...
 });
 
 // Route to fix admin users (for development)
@@ -862,6 +866,20 @@ app.get('/health', (req, res) => {
         }
     });
 });
+
+function auctionWindow(product) {
+    const endDate = product.auctionEndDate || product.auctionDate;
+    const start = new Date(`${product.auctionDate}T${product.auctionStartTime}:00+05:30`);
+    const end = new Date(`${endDate}T${product.auctionEndTime}:00+05:30`);
+    return { start, end };
+}
+
+function statusForWindow(start, end, now = new Date()) {
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) return 'Upcoming';
+    if (now >= start && now <= end) return 'Live';
+    if (now > end) return 'Closed';
+    return 'Upcoming';
+}
 
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import './Winner.css';
 
@@ -13,7 +13,7 @@ function Winner() {
         const fetchWinners = async () => {
             try {
                 setLoading(true);
-                const response = await axios.get('http://localhost:5001/winners');
+                const response = await api.get('/winners');
                 console.log('Fetched winners data:', response.data);
                 
                 // Only get the winners (closed auctions with highest bids)

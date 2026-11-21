@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 
 const ProductContext = createContext();
 
@@ -20,7 +20,7 @@ export const ProductProvider = ({ children }) => {
         try {
             setLoading(true);
             setError(null);
-            const response = await axios.get('http://localhost:5001/items');
+            const response = await api.get('/items');
             setProducts(response.data);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -36,7 +36,7 @@ export const ProductProvider = ({ children }) => {
             console.log('Attempting to delete product:', productName);
             console.log('Token:', token ? 'Present' : 'Missing');
             
-            const response = await axios.delete(`http://localhost:5001/items/${productName}`, {
+            const response = await api.delete(`/items/${encodeURIComponent(productName)}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

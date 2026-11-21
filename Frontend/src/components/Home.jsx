@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useProductContext } from '../context/ProductContext';
 import Notification from './Notification';
@@ -87,11 +86,8 @@ const Home = () => {
 
         allProducts.forEach((product) => {
             try {
-                const startTimeString = `${product.auctionDate}T${product.auctionStartTime}:00`;
-                const endTimeString = `${product.auctionEndDate || product.auctionDate}T${product.auctionEndTime}:00`;
-                
-                const start = new Date(startTimeString);
-                const end = new Date(endTimeString);
+                const start = new Date(`${product.auctionDate}T${product.auctionStartTime}:00+05:30`);
+                const end = new Date(`${product.auctionEndDate || product.auctionDate}T${product.auctionEndTime}:00+05:30`);
 
                 if (now >= start && now <= end) {
                     live.push(product);
@@ -150,9 +146,10 @@ const Home = () => {
                         
                         // Use auctionEndDate if it exists, otherwise fallback to auctionDate
                         const endDate = product.auctionEndDate || product.auctionDate;
-                        const endTimeString = `${endDate}T${product.auctionEndTime}:00`;
-                        const startTimeString = `${product.auctionDate}T${product.auctionStartTime}:00`;
+                        const endTimeString = `${endDate}T${product.auctionEndTime}:00+05:30`;
+                        const startTimeString = `${product.auctionDate}T${product.auctionStartTime}:00+05:30`;
                         const countdownTime = isLive ? endTimeString : startTimeString;
+                        const currentPrice = product.currentPrice ?? product.price;
                         
                         return (
                             <div key={product._id} className="auction-card">
@@ -171,7 +168,7 @@ const Home = () => {
                                 </div>
                                 <div className="auction-details">
                                     <h3 className="product-name">{product.name}</h3>
-                                    <p className="price">Price: ₹{product.price}</p>
+                                    <p className="price">Current Price: ₹{currentPrice}</p>
                                     <p className="category">Category: {product.category}</p>
                                     <div className="auction-dates">
                                         <p className="start-date">

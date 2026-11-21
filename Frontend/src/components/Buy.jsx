@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/api';
 import './Buy.css';
 
 const Buy = () => {
@@ -16,7 +16,7 @@ const Buy = () => {
         const fetchProduct = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`http://localhost:5001/items/${productId}`, {
+                const response = await api.get(`/items/${productId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -57,8 +57,9 @@ const Buy = () => {
             return;
         }
 
-        if (bid <= product.price) {
-            setError(`Your bid must be higher than the current price of ₹${product.price}`);
+        const currentPrice = Number(product.currentPrice ?? product.price);
+        if (bid <= currentPrice) {
+            setError(`Your bid must be higher than the current price of ₹${currentPrice}`);
             setLoading(false);
             return;
         }
@@ -72,8 +73,8 @@ const Buy = () => {
                 return;
             }
 
-            const response = await axios.post(
-                `http://localhost:5001/bid/${productId}`,
+            const response = await api.post(
+                `/bid/${productId}`,
                 { bidAmount: bid },
                 {
                     headers: {
@@ -85,7 +86,10 @@ const Buy = () => {
 
             if (response.status === 201) {
                 setSuccessMessage('Your bid has been placed successfully!');
-                setProduct({...product, price: bid});
+                setProduct({
+                    ...product,
+                    currentPrice: response.data.currentPrice ?? bid
+                });
                 
                 setTimeout(() => navigate('/home'), 2000);
             }
@@ -110,8 +114,18 @@ const Buy = () => {
     };
   
     if (!product) {
-        return <div className="loading">Loading product details...</div>;
+        return (
+            <div className="loading">
+                {error || 'Loading product details...'}
+            </div>
+        );
     }
+
+    const currentPrice = Number(product.currentPrice ?? product.price);
+    const start = new Date(`${product.auctionDate}T${product.auctionStartTime}:00+05:30`);
+    const end = new Date(`${(product.auctionEndDate || product.auctionDate)}T${product.auctionEndTime}:00+05:30`);
+    const now = new Date();
+    const isLive = now >= start && now <= end;
 
     return (
         <div className="buy-container">
@@ -121,7 +135,9 @@ const Buy = () => {
 
             <div className="product-details">
                 <h3>{product.name}</h3>
-                <p><strong>Current Price:</strong> ₹{product.price}</p>
+                <p><strong>Starting Price:</strong> ₹{product.price}</p>
+                <p><strong>Current Price:</strong> ₹{currentPrice}</p>
+                <p><strong>Status:</strong> {isLive ? 'Live' : now < start ? 'Upcoming' : 'Closed'}</p>
                 <p><strong>Description:</strong> {product.description}</p>
                 <p><strong>Category:</strong> {product.category}</p>
                 <p><strong>Auction Date:</strong> {product.auctionDate}</p>
@@ -144,6 +160,7 @@ const Buy = () => {
                 )}
             </div>
 
+            {isLive ? (
             <form onSubmit={handleBid} className="bid-form">
                 <div className="form-group">
                     <label htmlFor="bidAmount">Your Bid (₹):</label>
@@ -152,7 +169,7 @@ const Buy = () => {
                         id="bidAmount"
                         value={bidAmount}
                         onChange={(e) => setBidAmount(e.target.value)}
-                        min={product.price + 1}
+                        min={currentPrice + 1}
                         step="0.01"
                         required
                     />
@@ -161,6 +178,11 @@ const Buy = () => {
                     {loading ? 'Placing Bid...' : 'Place Your Bid'}
                 </button>
             </form>
+            ) : (
+                <p className="error-message">
+                    {now < start ? 'This auction has not started yet.' : 'This auction is closed.'}
+                </p>
+            )}
             
             <button onClick={() => navigate('/home')} className="cancel-button">
                 Back to Home

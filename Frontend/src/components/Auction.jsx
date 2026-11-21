@@ -81,6 +81,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import api from '../api/api';
 
 function PostAuction() {
   const location = useLocation();
@@ -110,7 +111,7 @@ function PostAuction() {
     }
   
     try {
-      const response = await axios.post("http://localhost:5000/submit-bid", {
+      const response = await api.post("/submit-bid", {
         productName: selectedProduct.name,
         userName: user.name,
         email: user.email,

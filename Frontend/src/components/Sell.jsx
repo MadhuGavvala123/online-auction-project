@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 import './Sell.css';
 
@@ -56,7 +56,14 @@ function Sell() {
                 return;
             }
 
-            const response = await axios.post('http://localhost:5001/sell', formData, {
+            const start = new Date(`${formData.auctionDate}T${formData.auctionStartTime}:00+05:30`);
+            const end = new Date(`${formData.auctionEndDate}T${formData.auctionEndTime}:00+05:30`);
+            if (!(end > start)) {
+                setErrorMessage('Auction end must be after the start.');
+                return;
+            }
+
+            const response = await api.post('/sell', formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'

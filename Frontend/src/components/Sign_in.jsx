@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import { useNavigate } from 'react-router-dom';
 
 function Sign_in() {
@@ -24,8 +24,8 @@ function Sign_in() {
     try {
       console.log('Sending signin request:', { email });
       
-      const response = await axios.post(
-        'http://localhost:5001/signin', // Changed to port 5001
+      const response = await api.post(
+        '/signin',
         { email, password },
         {
           headers: {
