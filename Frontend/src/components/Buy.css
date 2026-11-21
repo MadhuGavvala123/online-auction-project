@@ -1,122 +1,159 @@
+
+/* ==============================
+   BUY PAGE - PREMIUM AUCTION THEME
+================================ */
+
 .buy-page {
     max-width: 900px;
     margin: 50px auto;
-    padding: 30px;
-    background: linear-gradient(135deg, #FFE6F0, #F0E6FF);
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(255, 107, 157, 0.4);
+    padding: 35px;
+    background: #f7f6f2;
+    border-radius: 10px;
+    box-shadow: 0 12px 35px rgba(20, 40, 63, 0.09);
     font-family: 'Segoe UI', sans-serif;
-    border: 2px solid #A78BFA;
+    border: 1px solid #e5e1d8;
+    color: #263344;
 }
 
 .buy-container {
     max-width: 800px;
     margin: 30px auto;
-    padding: 25px;
-    background: linear-gradient(135deg, #FFE6F0, #F0E6FF);
-    border-radius: 20px;
-    box-shadow: 0 12px 30px rgba(255, 107, 157, 0.4);
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(20, 40, 63, 0.08);
     font-family: 'Segoe UI', sans-serif;
-    border: 2px solid #A78BFA;
+    border: 1px solid #e9e5dc;
 }
+
+/* ==============================
+   PRODUCT IMAGES
+================================ */
 
 .buy-image {
     width: 100%;
-    max-height: 300px;
+    max-height: 340px;
     object-fit: contain;
-    border-radius: 12px;
+    border-radius: 8px;
     margin-bottom: 30px;
-    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
+    background: #f7f6f2;
+    box-shadow: 0 6px 20px rgba(20, 40, 63, 0.08);
+    padding: 15px;
 }
 
-/* Add styles for the product-image class used in Buy component */
 .product-image {
     width: 300px;
     height: 250px;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: 8px;
     margin: 15px 0;
-    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
-    border: 2px solid #A78BFA;
+    box-shadow: 0 8px 22px rgba(20, 40, 63, 0.12);
+    border: 1px solid #e5e1d8;
+    transition: transform 0.3s ease;
 }
 
+.product-image:hover {
+    transform: scale(1.025);
+}
+
+/* ==============================
+   PRODUCT DETAILS
+================================ */
+
 .product-details {
-    padding: 20px;
-    background: linear-gradient(135deg, #FFFFFF, #FFE6F0);
-    border-radius: 16px;
-    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
-    border: 1px solid #A78BFA;
-    margin-bottom: 20px;
+    padding: 28px;
+    background: #ffffff;
+    border-radius: 9px;
+    box-shadow: 0 5px 20px rgba(20, 40, 63, 0.06);
+    border: 1px solid #e9e5dc;
+    margin-bottom: 25px;
 }
 
 .product-details h3 {
-    color: #4A148C;
-    font-size: 24px;
-    margin-bottom: 15px;
+    color: #14283f;
+    font-size: 25px;
+    font-weight: 750;
+    margin-bottom: 20px;
     text-align: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #d9b66e;
 }
 
 .product-details p {
-    font-size: 16px;
-    margin-bottom: 10px;
-    color: #4A148C;
-    line-height: 1.5;
+    font-size: 15.5px;
+    margin-bottom: 13px;
+    color: #657181;
+    line-height: 1.7;
 }
 
 .product-details strong {
-    color: #4A148C;
-    font-weight: 600;
+    color: #14283f;
+    font-weight: 700;
 }
 
+/* ==============================
+   BIDDING FORM
+================================ */
+
 .bid-form {
-    background: linear-gradient(135deg, #FFFFFF, #F0E6FF);
-    padding: 20px;
-    border-radius: 16px;
-    box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
-    border: 1px solid #A78BFA;
-    margin-bottom: 20px;
+    background: #f7f6f2;
+    padding: 28px;
+    border-radius: 9px;
+    box-shadow: 0 5px 20px rgba(20, 40, 63, 0.05);
+    border: 1px solid #e9e5dc;
+    margin-bottom: 25px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
-    color: #4A148C;
-    font-weight: 600;
-    font-size: 16px;
+    margin-bottom: 9px;
+    color: #14283f;
+    font-weight: 650;
+    font-size: 15px;
 }
+
+/* ==============================
+   INPUT FIELDS
+================================ */
 
 input[type="number"] {
     width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    border: 2px solid #A78BFA;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: 0.3s border-color;
-    background: rgba(255, 255, 255, 0.9);
+    padding: 13px 15px;
+    margin: 10px 0;
+    border: 1px solid #cbd2dc;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.25s ease;
+    background: #ffffff;
+    color: #14283f;
+    box-sizing: border-box;
 }
 
 input[type="number"]:focus {
-    border-color: #4A148C;
+    border-color: #b18a43;
     outline: none;
-    box-shadow: 0 0 8px rgba(74, 20, 140, 0.4);
+    box-shadow: 0 0 0 3px rgba(177, 138, 67, 0.13);
 }
 
+/* ==============================
+   BUTTONS
+================================ */
+
 button {
-    padding: 12px 24px;
-    font-size: 16px;
-    color: white;
-    background: linear-gradient(135deg, #FF6B9D, #A78BFA);
-    border: none;
-    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 15px;
+    color: #ffffff;
+    background: #14283f;
+    border: 1px solid #14283f;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    font-weight: 600;
-    box-shadow: 0 2px 8px rgba(255, 107, 157, 0.4);
+    font-weight: 650;
+    box-shadow: 0 4px 12px rgba(20, 40, 63, 0.12);
     width: auto;
     min-width: 120px;
     margin: 5px;
@@ -124,26 +161,32 @@ button {
 
 button:hover {
     transform: translateY(-2px);
-    background: linear-gradient(135deg, #FF4D8D, #8B5A96);
-    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.6);
+    background: #b18a43;
+    border-color: #b18a43;
+    color: #14283f;
+    box-shadow: 0 6px 16px rgba(177, 138, 67, 0.2);
 }
 
 button:disabled {
-    opacity: 0.6;
+    opacity: 0.55;
     cursor: not-allowed;
     transform: none;
 }
 
+/* ==============================
+   CANCEL BUTTON
+================================ */
+
 .cancel-button {
     text-decoration: none;
-    color: #4A148C;
+    color: #14283f;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 5px;
     transition: all 0.3s ease-in-out;
-    background: rgba(255, 255, 255, 0.8);
-    border: 2px solid #A78BFA;
+    background: #ffffff;
+    border: 1px solid #cbd2dc;
     cursor: pointer;
     position: relative;
     margin-top: 15px;
@@ -152,55 +195,127 @@ button:disabled {
 }
 
 .cancel-button:hover {
-    background: linear-gradient(135deg, #FF6B9D, #A78BFA);
-    color: white;
+    background: #14283f;
+    color: #ffffff;
+    border-color: #14283f;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.5);
+    box-shadow: 0 5px 14px rgba(20, 40, 63, 0.15);
 }
 
+/* ==============================
+   STATUS MESSAGES
+================================ */
+
 .error-message {
-    background: #ffebee;
-    color: #c62828;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ffcdd2;
-    font-weight: 500;
+    background: #fff1f0;
+    color: #b42318;
+    padding: 14px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    border: 1px solid #f3c7c3;
+    font-weight: 550;
 }
 
 .success-message {
-    background: #e8f5e8;
-    color: #2e7d32;
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #c8e6c9;
-    font-weight: 500;
+    background: #edf7f0;
+    color: #216e43;
+    padding: 14px;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    border: 1px solid #b9dfc5;
+    font-weight: 550;
 }
+
+/* ==============================
+   LOADING & NOTES
+================================ */
 
 .loading {
     text-align: center;
-    padding: 40px;
+    padding: 45px;
     font-size: 18px;
-    color: #4A148C;
+    color: #14283f;
+    font-weight: 600;
 }
 
 .note {
-    color: #c0392b;
+    color: #b42318;
     margin-top: 12px;
     font-size: 14px;
 }
 
+/* ==============================
+   VIEW BIDS LINK
+================================ */
+
 .view-bids-link {
     display: inline-block;
-    margin-top: 15px;
+    margin-top: 18px;
     text-decoration: none;
-    color: #4A148C;
-    font-weight: 500;
-    transition: color 0.3s;
+    color: #a17a34;
+    font-weight: 700;
+    transition: color 0.3s ease;
+    border-bottom: 1px solid transparent;
 }
 
 .view-bids-link:hover {
-    color: #4A148C;
+    color: #14283f;
+    border-bottom-color: #b18a43;
 }
-  
+
+/* ==============================
+   RESPONSIVE DESIGN
+================================ */
+
+@media (max-width: 768px) {
+    .buy-page {
+        margin: 20px 12px;
+        padding: 20px;
+    }
+
+    .buy-container {
+        margin: 15px auto;
+        padding: 20px;
+    }
+
+    .product-details,
+    .bid-form {
+        padding: 20px;
+    }
+
+    .product-image {
+        width: 100%;
+        max-width: 300px;
+        height: 230px;
+    }
+
+    .buy-image {
+        max-height: 260px;
+    }
+
+    button {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .buy-page {
+        padding: 15px;
+    }
+
+    .buy-container {
+        padding: 15px;
+    }
+
+    .product-details h3 {
+        font-size: 21px;
+    }
+
+    .product-details p {
+        font-size: 14px;
+    }
+
+    .bid-form {
+        padding: 17px;
+    }
+}
