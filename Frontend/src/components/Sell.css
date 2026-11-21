@@ -1,324 +1,275 @@
 
-/* Navbar Container */
-.navbar-container {
-  background: linear-gradient(135deg, #14283f, #1d354f);
-  text-align: center;
-  padding: 25px 30px;
-  width: min(1300px, 95%);
-  border: 1px solid rgba(177, 138, 67, 0.4);
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(20, 40, 63, 0.2);
-  position: relative;
-  overflow: hidden;
-  margin: 20px auto;
+/* Main Sell Form Container */
+.sell-form-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 50px 20px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #eef1f5, #e5e9ef);
 }
 
-/* Form Layout */
-.navbar-container form {
-  width: min(480px, 100%);
-  margin: 25px auto;
-  padding: 30px;
+/* Heading */
+.sell-form-container h2 {
+  color: #14283f;
+  font-size: 30px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+  position: relative;
+}
+
+.sell-form-container h2::after {
+  content: "";
+  display: block;
+  width: 75px;
+  height: 4px;
+  background: #b18a43;
+  border-radius: 5px;
+  margin: 12px auto 0;
+}
+
+/* Form Card */
+.sell-form {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 38px 42px;
   box-sizing: border-box;
   background: #ffffff;
-  border: 1px solid #e5d5b5;
-  border-radius: 14px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  border: 1px solid #e5d9c2;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(20, 40, 63, 0.12);
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 15px;
+  gap: 12px;
   text-align: left;
 }
 
-.navbar-container form label {
+/* Labels */
+.sell-form label {
   display: block;
   color: #263c52;
   font-size: 14px;
   font-weight: 700;
-  margin-bottom: -8px;
+  margin-top: 8px;
+  margin-bottom: 2px;
 }
 
-.navbar-container form input,
-.navbar-container form select,
-.navbar-container form textarea {
+/* Input Fields */
+.sell-form input,
+.sell-form textarea,
+.sell-form select {
   width: 100%;
   box-sizing: border-box;
   padding: 12px 14px;
-  border: 1px solid #d9d4c9;
+  border: 1px solid #d8dce2;
   border-radius: 7px;
-  background: #faf9f6;
+  background: #f9fafb;
   color: #263c52;
   font-size: 14px;
+  font-family: inherit;
   outline: none;
-  transition: 0.25s ease;
+  transition: all 0.25s ease;
 }
 
-.navbar-container form input:focus,
-.navbar-container form select:focus,
-.navbar-container form textarea:focus {
+/* Focus Effects */
+.sell-form input:focus,
+.sell-form textarea:focus,
+.sell-form select:focus {
   border-color: #b18a43;
   background: #ffffff;
   box-shadow: 0 0 0 3px rgba(177, 138, 67, 0.13);
 }
 
-.navbar-container form button {
+/* Description */
+.sell-form textarea {
+  min-height: 110px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* Date Fields */
+.date-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
   width: 100%;
-  padding: 12px;
   margin-top: 8px;
-  background: linear-gradient(135deg, #d8b56d, #b18a43);
-  color: #14283f;
-  border: none;
-  border-radius: 7px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.25s ease;
 }
 
-.navbar-container form button:hover {
-  background: #94702f;
-  color: #ffffff;
-  transform: translateY(-2px);
+.date-inputs > div {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
-/* Heading Styles */
-.main-title {
-  color: #e2c17e;
-  font-size: 30px;
+.date-inputs label {
+  color: #263c52;
   font-weight: 700;
-  letter-spacing: 0.8px;
-  position: relative;
   margin-bottom: 8px;
 }
 
-.sub-title {
-  font-size: 21px;
-  color: #f7f6f2;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-/* Navigation Menu */
-.nav-options {
-  background: #f7f6f2;
-  padding: 14px 18px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  position: relative;
-  margin: 15px 0;
+.date-inputs input {
   width: 100%;
-  box-sizing: border-box;
 }
 
-/* Navigation List */
-.nav-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* Time Fields */
+.time-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.time-inputs div {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  min-width: 0;
 }
 
-/* Navigation Links */
-.nav-link {
-  text-decoration: none;
-  color: #263c52;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 10px 16px;
-  border-radius: 7px;
-  transition: all 0.25s ease-in-out;
-  background: transparent;
-  border: 1px solid transparent;
-  position: relative;
+.time-inputs div:last-child {
+  margin-right: 0;
 }
 
-.nav-link:hover {
-  background: #14283f;
-  color: #e2c17e;
-  border-color: #14283f;
-  transform: translateY(-2px);
-}
-
-/* Active Page Styling */
-.nav-link-active {
-  background: #14283f !important;
-  color: #e2c17e !important;
-  border: 1px solid #b18a43 !important;
-  box-shadow: 0 3px 10px rgba(20, 40, 63, 0.15);
-  position: relative;
-}
-
-.nav-link-active::before {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 65%;
-  height: 2px;
-  background: #d8b56d;
-  border-radius: 2px;
-}
-
-.nav-link-active:hover {
-  background: #243d57 !important;
-  color: #f0d99f !important;
-  transform: translateY(-2px);
-}
-
-/* User Info and Logout Button */
-.user-info {
+/* Auction Dates */
+.auction-dates {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 15px;
-  margin: 15px 0;
-  font-size: 14px;
-  color: #f7f6f2;
-  flex-wrap: wrap;
+  margin-top: 10px;
 }
 
-.user-info span {
-  color: #f7f6f2;
+.start-date,
+.end-date {
+  color: #263c52;
+  background: #f7f6f2;
+  border-left: 3px solid #b18a43;
+  padding: 12px;
+  border-radius: 6px;
 }
 
-.user-info .user-name {
-  color: #f0cf83;
-  font-weight: 700;
+.start-date strong,
+.end-date strong {
+  color: #14283f;
 }
 
-/* Logout Button */
-.logout-btn {
+/* Submit Button */
+.sell-form button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px;
   background: linear-gradient(135deg, #d8b56d, #b18a43);
   color: #14283f;
-  border: 1px solid #d8b56d;
-  padding: 8px 17px;
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
   cursor: pointer;
-  font-size: 12px;
-  font-weight: 700;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 14px rgba(177, 138, 67, 0.2);
 }
 
-.logout-btn:hover {
-  background: #94702f;
+.sell-form button:hover {
+  background: linear-gradient(135deg, #b18a43, #94702f);
   color: #ffffff;
-  border-color: #94702f;
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(177, 138, 67, 0.25);
+  box-shadow: 0 8px 18px rgba(177, 138, 67, 0.3);
 }
 
-.logout-btn-small {
-  text-decoration: none;
-  color: #263c52;
+.sell-form button:disabled {
+  background: #b8b8b8;
+  color: #ffffff;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Success Message */
+.success-message {
+  background: #e8f5ec;
+  color: #216b3a;
+  border: 1px solid #b9dfc4;
+  padding: 12px;
+  border-radius: 7px;
+  text-align: center;
   font-size: 14px;
   font-weight: 600;
-  padding: 9px 16px;
-  border-radius: 6px;
-  transition: all 0.25s ease-in-out;
-  background: #ffffff;
-  border: 1px solid #e5e0d5;
-  cursor: pointer;
-  position: relative;
-  width: fit-content;
-  display: inline-block;
+  margin-top: 8px;
 }
 
-.logout-btn-small:hover {
-  background: #14283f;
-  color: #e2c17e;
-  border-color: #14283f;
-  transform: translateY(-2px);
-}
-
-/* Admin Badge */
-.admin-badge {
-  background: #b18a43;
-  color: #ffffff;
-  padding: 6px 12px;
-  border-radius: 5px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
+/* Error Message */
+.error-message {
+  background: #fff0ef;
+  color: #b42318;
+  border: 1px solid #f1c1bd;
+  padding: 12px;
+  border-radius: 7px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .navbar-container {
-    width: 95%;
-    padding: 20px 12px;
+  .sell-form-container {
+    padding: 35px 15px;
   }
 
-  .main-title {
+  .sell-form-container h2 {
     font-size: 25px;
   }
 
-  .sub-title {
-    font-size: 19px;
+  .sell-form {
+    max-width: 580px;
+    padding: 28px 24px;
   }
 
-  .nav-list {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-link {
-    font-size: 13px;
-    padding: 8px 12px;
-    width: fit-content;
-  }
-
-  .nav-link-active::before {
-    width: 60%;
-  }
-
-  .nav-options {
-    padding: 14px 10px;
-  }
-
-  .navbar-container form {
-    width: 95%;
-    padding: 24px;
+  .date-inputs,
+  .time-inputs {
+    gap: 12px;
   }
 }
 
 @media (max-width: 480px) {
-  .navbar-container {
-    width: 96%;
-    padding: 16px 8px;
-    margin: 12px auto;
+  .sell-form-container {
+    padding: 25px 12px;
   }
 
-  .main-title {
-    font-size: 21px;
+  .sell-form-container h2 {
+    font-size: 22px;
   }
 
-  .sub-title {
-    font-size: 16px;
+  .sell-form {
+    padding: 22px 17px;
+    border-radius: 12px;
   }
 
-  .user-info {
-    flex-direction: column;
+  .date-inputs,
+  .time-inputs {
+    grid-template-columns: 1fr;
     gap: 8px;
   }
 
-  .nav-link-active::before {
-    width: 50%;
+  .sell-form label {
+    font-size: 13px;
   }
 
-  .nav-options {
-    padding: 12px 8px;
+  .sell-form input,
+  .sell-form textarea,
+  .sell-form select {
+    padding: 11px;
+    font-size: 13px;
   }
 
-  .navbar-container form {
-    width: 100%;
-    padding: 20px 16px;
+  .sell-form button {
+    padding: 12px;
   }
 }
