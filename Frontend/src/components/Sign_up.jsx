@@ -35,7 +35,7 @@ function Sign_up() {
       setLoading(true);
       console.log('Sending signup request:', { name, mobile, email });
       
-      const res = await axios.post('http://localhost:5001/signup', {
+      const res = await axios.post('/signup', {
         name,
         mobile,
         email,
