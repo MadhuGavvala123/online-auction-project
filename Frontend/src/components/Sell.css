@@ -3,40 +3,56 @@
 .navbar-container {
   background: linear-gradient(135deg, #14283f, #1d354f);
   text-align: center;
-  padding: 18px;
+  padding: 25px 30px;
   width: min(1300px, 95%);
-  border: 1px solid rgba(177, 138, 67, 0.3);
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(20, 40, 63, 0.16);
+  border: 1px solid rgba(177, 138, 67, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(20, 40, 63, 0.2);
   position: relative;
   overflow: hidden;
   margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Form Alignment */
+.navbar-container form {
+  width: min(500px, 100%);
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  text-align: left;
 }
 
 /* Heading Styles */
 .main-title {
   color: #e2c17e;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.8px;
   position: relative;
+  margin-bottom: 8px;
 }
 
 .sub-title {
-  font-size: 23px;
+  font-size: 21px;
   color: #f7f6f2;
   font-weight: 600;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 /* Navigation Menu */
 .nav-options {
   background: #f7f6f2;
-  padding: 15px 12px;
-  border-radius: 8px;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  padding: 14px 18px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   position: relative;
   margin: 15px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Navigation List */
@@ -47,7 +63,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
@@ -57,8 +73,8 @@
   color: #263c52;
   font-size: 14px;
   font-weight: 600;
-  padding: 9px 16px;
-  border-radius: 6px;
+  padding: 10px 16px;
+  border-radius: 7px;
   transition: all 0.25s ease-in-out;
   background: transparent;
   border: 1px solid transparent;
@@ -105,7 +121,7 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
-  margin: 12px 0;
+  margin: 15px 0;
   font-size: 14px;
   color: #f7f6f2;
   flex-wrap: wrap;
@@ -116,17 +132,17 @@
 }
 
 .user-info .user-name {
-  color: #e2c17e;
+  color: #f0cf83;
   font-weight: 700;
 }
 
 /* Logout Button */
 .logout-btn {
-  background: #b18a43;
-  color: #ffffff;
-  border: 1px solid #b18a43;
-  padding: 7px 14px;
-  border-radius: 5px;
+  background: linear-gradient(135deg, #d8b56d, #b18a43);
+  color: #14283f;
+  border: 1px solid #d8b56d;
+  padding: 8px 17px;
+  border-radius: 6px;
   cursor: pointer;
   font-size: 12px;
   font-weight: 700;
@@ -135,6 +151,7 @@
 
 .logout-btn:hover {
   background: #94702f;
+  color: #ffffff;
   border-color: #94702f;
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(177, 138, 67, 0.25);
@@ -177,63 +194,67 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .navbar-container {
-      width: 95%;
-      padding: 14px 10px;
+    width: 95%;
+    padding: 20px 12px;
   }
 
   .main-title {
-      font-size: 24px;
+    font-size: 25px;
   }
 
   .sub-title {
-      font-size: 20px;
+    font-size: 19px;
   }
 
   .nav-list {
-      flex-direction: column;
-      gap: 10px;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .nav-link {
-      font-size: 13px;
-      padding: 8px 12px;
-      width: fit-content;
+    font-size: 13px;
+    padding: 8px 12px;
+    width: fit-content;
   }
 
   .nav-link-active::before {
-      width: 60%;
+    width: 60%;
   }
 
   .nav-options {
-      padding: 14px 10px;
+    padding: 14px 10px;
+  }
+
+  .navbar-container form {
+    width: 95%;
   }
 }
 
 @media (max-width: 480px) {
   .navbar-container {
-      width: 96%;
-      padding: 12px 8px;
-      margin: 12px auto;
+    width: 96%;
+    padding: 16px 8px;
+    margin: 12px auto;
   }
 
   .main-title {
-      font-size: 20px;
+    font-size: 21px;
   }
 
   .sub-title {
-      font-size: 16px;
+    font-size: 16px;
   }
 
   .user-info {
-      flex-direction: column;
-      gap: 8px;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .nav-link-active::before {
-      width: 50%;
+    width: 50%;
   }
 
   .nav-options {
-      padding: 12px 8px;
+    padding: 12px 8px;
   }
 }
